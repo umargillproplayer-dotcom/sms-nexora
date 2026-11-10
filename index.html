@@ -23,10 +23,68 @@ button,select,input{font:inherit}button{cursor:pointer}
 .mobile-menu{display:none}
 @media(max-width:1000px){.sidebar{width:215px}.stats{grid-template-columns:repeat(2,1fr)}.grid-main{grid-template-columns:1fr}.content{padding:25px 22px}}
 @media(max-width:650px){.sidebar{display:none}.topbar{height:62px;padding:0 16px}.mobile-menu{display:inline-grid}.content{padding:22px 14px}.welcome h1{font-size:22px}.stats{gap:10px}.stat{padding:14px}.stat strong{font-size:22px}.stat-top{font-size:10px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:16px}.top-actions{gap:8px}.profile span{display:none}}
+
+.auth-screen{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:#f5f7fb}
+.auth-brand-panel{background:linear-gradient(145deg,#101a33,#243b75 70%,#315cf5);color:#fff;padding:55px 8%;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.auth-brand-panel:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff20;border-radius:50%;right:-160px;bottom:-180px;box-shadow:0 0 0 45px #ffffff09,0 0 0 90px #ffffff07}
+.auth-brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:850;position:relative;z-index:1}
+.auth-brand .brand-mark{height:42px;width:42px}
+.auth-pitch{max-width:510px;position:relative;z-index:1;margin:60px 0}
+.auth-pitch h1{font-size:clamp(32px,4vw,52px);line-height:1.1;letter-spacing:-1.7px;margin:0 0 18px}
+.auth-pitch p{color:#d4def8;line-height:1.8;font-size:15px;max-width:440px}
+.auth-points{display:grid;gap:13px;margin-top:30px;color:#e5ebff;font-size:13px}
+.auth-points span:before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#ffffff20;margin-right:10px}
+.auth-foot{font-size:11px;color:#b9c7e8;position:relative;z-index:1}
+.auth-form-side{display:grid;place-items:center;padding:35px 22px}
+.auth-box{width:min(100%,420px);background:#fff;border:1px solid #e8edf5;border-radius:18px;padding:34px;box-shadow:0 18px 55px #1b2d5010}
+.auth-box h2{font-size:25px;margin:0 0 8px;letter-spacing:-.7px}
+.auth-sub{font-size:12px;color:#758098;margin:0 0 25px;line-height:1.6}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f2f5fa;padding:4px;border-radius:10px;margin-bottom:22px}
+.auth-tabs button{border:0;background:transparent;border-radius:8px;padding:10px;color:#758098;font-size:12px;font-weight:750}
+.auth-tabs button.active{background:#fff;color:#315cf5;box-shadow:0 2px 7px #1a2c4a12}
+.auth-field{margin-bottom:15px}.auth-field label{display:block;font-size:11px;font-weight:750;color:#56627a;margin-bottom:7px}
+.auth-field input{width:100%;height:45px;border:1px solid #e1e7f0;border-radius:9px;padding:0 12px;outline:none}
+.auth-field input:focus{border-color:#315cf5;box-shadow:0 0 0 3px #315cf51a}
+.auth-submit{width:100%;height:45px;margin-top:5px}
+.auth-legal{font-size:10px;line-height:1.6;color:#8993a7;margin-top:17px;text-align:center}
+.auth-demo{width:100%;margin-top:12px}
+.auth-message{display:none;margin-top:12px;padding:10px;border-radius:8px;background:#fff4dd;color:#8c611b;font-size:11px;line-height:1.5}
+@media(max-width:760px){.auth-screen{grid-template-columns:1fr}.auth-brand-panel{padding:25px 25px 15px;min-height:260px}.auth-pitch{margin:40px 0 20px}.auth-pitch h1{font-size:32px}.auth-points{display:none}.auth-foot{display:none}.auth-form-side{padding:22px 14px}.auth-box{padding:25px}}
+
 </style>
 </head>
 <body>
-<div class="layout">
+<section class="auth-screen" id="auth-screen">
+  <div class="auth-brand-panel">
+    <div class="auth-brand"><div class="brand-mark">✦</div>SMS Nexora</div>
+    <div class="auth-pitch">
+      <h1>Messaging tools.<br>One clear workspace.</h1>
+      <p>Manage your authorized business messaging workflows, track activity, and keep your account organized in one place.</p>
+      <div class="auth-points"><span>Personal account workspace</span><span>Order and wallet overview</span><span>Simple account management</span></div>
+    </div>
+    <div class="auth-foot">© 2026 SMS Nexora · Account access preview</div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <h2 id="auth-title">Welcome back</h2>
+      <p class="auth-sub" id="auth-sub">Sign in to continue to your SMS Nexora workspace.</p>
+      <div class="auth-tabs">
+        <button id="login-tab" class="active" onclick="setAuthMode('login')">Log in</button>
+        <button id="signup-tab" onclick="setAuthMode('signup')">Create account</button>
+      </div>
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="auth-field" id="name-field" style="display:none"><label for="auth-name">FULL NAME</label><input id="auth-name" type="text" placeholder="Your full name" autocomplete="name"></div>
+        <div class="auth-field"><label for="auth-email">EMAIL ADDRESS</label><input id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+        <div class="auth-field"><label for="auth-password">PASSWORD</label><input id="auth-password" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="8" required></div>
+        <button class="primary auth-submit" id="auth-submit" type="submit">Log in to account →</button>
+      </form>
+      <div class="auth-message" id="auth-message">Account authentication is not connected yet. This is a visual preview only; no password is saved or sent.</div>
+      <button class="secondary auth-demo" type="button" onclick="openDemoDashboard()">Preview dashboard without an account</button>
+      <p class="auth-legal">By continuing, you agree to use the platform lawfully. Secure sign-in and account creation will be enabled after backend authentication is connected.</p>
+    </div>
+  </div>
+</section>
+<div class="layout" id="app-layout" style="display:none">
 <aside class="sidebar">
   <div class="brand"><div class="brand-mark">✦</div>SMS Nexora</div>
   <div class="nav-label">WORKSPACE</div>
@@ -102,6 +160,31 @@ button,select,input{font:inherit}button{cursor:pointer}
 </div>
 <div class="toast" id="toast" role="status"></div>
 <script>
+
+let authMode='login';
+function setAuthMode(mode){
+ authMode=mode;
+ const signup=mode==='signup';
+ document.getElementById('auth-title').textContent=signup?'Create your account':'Welcome back';
+ document.getElementById('auth-sub').textContent=signup?'Set up your personal SMS Nexora workspace.':'Sign in to continue to your SMS Nexora workspace.';
+ document.getElementById('name-field').style.display=signup?'block':'none';
+ document.getElementById('auth-name').required=signup;
+ document.getElementById('auth-password').autocomplete=signup?'new-password':'current-password';
+ document.getElementById('auth-submit').textContent=signup?'Create account →':'Log in to account →';
+ document.getElementById('login-tab').classList.toggle('active',!signup);
+ document.getElementById('signup-tab').classList.toggle('active',signup);
+ document.getElementById('auth-message').style.display='none';
+}
+function handleAuth(event){
+ event.preventDefault();
+ document.getElementById('auth-message').style.display='block';
+}
+function openDemoDashboard(){
+ document.getElementById('auth-screen').style.display='none';
+ document.getElementById('app-layout').style.display='flex';
+ window.scrollTo(0,0);
+}
+
 let demoOrderNumber=1049;
 function showToast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
 function createDemoOrder(){
