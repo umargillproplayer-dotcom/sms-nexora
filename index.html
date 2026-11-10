@@ -3,90 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMS Nexora</title>
+<title>SMS Nexora — Dashboard</title>
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f5f8ff;
- color:#172554;
-}
-header{
- background:white;
- padding:20px 7%;
- display:flex;
- justify-content:space-between;
- align-items:center;
- box-shadow:0 2px 12px #dce5f5;
-}
-.logo{font-size:25px;font-weight:bold;color:#2563eb}
-nav a{margin-left:20px;text-decoration:none;color:#334155}
-.hero{text-align:center;padding:75px 20px}
-.hero h1{font-size:42px}
-.hero p{color:#64748b;font-size:17px}
-.btn{
- background:#2563eb;color:white;
- padding:13px 25px;border-radius:8px;
- text-decoration:none;display:inline-block;
- margin-top:15px;
-}
-.container{max-width:1050px;margin:auto;padding:20px}
-.cards{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:20px;
-}
-.card{
- background:white;padding:28px;
- border-radius:14px;
- box-shadow:0 4px 18px #dce5f5;
-}
-.card h2{color:#2563eb}
-footer{text-align:center;padding:30px;color:#64748b}
+:root{--bg:#f5f7fb;--panel:#fff;--ink:#172033;--muted:#758098;--line:#e8edf5;--blue:#315cf5;--blue2:#2448d8;--green:#16a36a;--purple:#7957e8;--shadow:0 12px 35px rgba(25,42,80,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial;color:var(--ink)}
+button,select,input{font:inherit}button{cursor:pointer}
+.layout{display:flex;min-height:100vh}.sidebar{width:250px;background:#101a33;color:#fff;padding:25px 17px;display:flex;flex-direction:column;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:11px;padding:3px 9px 30px;font-size:20px;font-weight:800;letter-spacing:-.5px}.brand-mark{height:37px;width:37px;border-radius:12px;background:linear-gradient(135deg,#4c7bff,#7957e8);display:grid;place-items:center;font-size:19px;box-shadow:0 7px 20px #315cf555}
+.nav-label{font-size:10px;letter-spacing:1.5px;color:#8390ad;font-weight:800;padding:12px 12px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#aeb9d1;text-align:left;padding:12px;border-radius:10px;font-size:13px;display:flex;gap:12px;align-items:center}.nav button:hover,.nav button.active{background:#24345c;color:#fff}.nav .ico{width:19px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;background:#1a294b;border:1px solid #2c3b5e;border-radius:14px;padding:15px;color:#dce5f8;font-size:12px;line-height:1.6}.side-bottom strong{display:block;font-size:13px;margin-bottom:5px}.side-bottom button{border:0;background:#fff;color:#20315a;border-radius:8px;padding:8px 10px;font-weight:700;font-size:11px;margin-top:8px}
+.main{flex:1;min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:5}.crumb{font-size:13px;color:var(--muted)}.crumb strong{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:16px}.icon-btn{height:37px;width:37px;border:1px solid var(--line);background:#fff;border-radius:10px;color:#68738a}.profile{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700}.avatar{width:34px;height:34px;border-radius:50%;background:#e8edff;color:var(--blue);display:grid;place-items:center;font-weight:800}
+.content{max-width:1440px;margin:auto;padding:30px 34px 50px}.welcome{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:25px}.welcome h1{font-size:25px;margin:0 0 7px;letter-spacing:-.7px}.welcome p{margin:0;color:var(--muted);font-size:13px}.demo-tag{font-size:11px;font-weight:800;color:#94621a;background:#fff4dd;padding:8px 11px;border-radius:30px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.stat-icon{height:34px;width:34px;border-radius:10px;display:grid;place-items:center;font-size:16px}.stat strong{display:block;font-size:25px;margin:13px 0 3px;letter-spacing:-.7px}.stat small{font-size:11px;color:var(--muted)}
+.grid-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.85fr);gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:21px;box-shadow:var(--shadow);margin-bottom:18px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.card-head h2{font-size:15px;margin:0}.card-head span{font-size:11px;color:var(--muted)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:11px;font-weight:750;color:#56627a;margin-bottom:7px}.field select,.field input{width:100%;height:43px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;padding:0 12px;color:#28334a;outline:none}.field select:focus,.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #315cf51a}.full{grid-column:1/-1}.primary{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:12px 17px;font-weight:750;font-size:12px;box-shadow:0 7px 15px #315cf52b}.primary:hover{background:var(--blue2)}.secondary{border:1px solid var(--line);background:#fff;color:#44516b;border-radius:9px;padding:9px 12px;font-weight:700;font-size:11px}.note{font-size:11px;color:var(--muted);line-height:1.6;margin:12px 0 0}
+.balance{background:linear-gradient(135deg,#315cf5,#6e5be8);color:#fff;border-radius:14px;padding:20px;position:relative;overflow:hidden}.balance:after{content:"";position:absolute;width:150px;height:150px;border:1px solid #ffffff30;border-radius:50%;right:-42px;top:-55px;box-shadow:0 0 0 20px #ffffff0b,0 0 0 40px #ffffff08}.balance small{font-size:11px;color:#e0e7ff}.balance strong{display:block;font-size:29px;margin:9px 0 16px}.balance button{background:#fff;color:#3154dc;border:0;border-radius:8px;padding:9px 12px;font-size:11px;font-weight:800;position:relative;z-index:1}
+.activity{display:grid;gap:0}.activity-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}.activity-row:last-child{border-bottom:0}.activity-row strong{display:block;font-size:12px;margin-bottom:4px}.activity-row small{color:var(--muted)}.amount{font-weight:800;color:var(--green);white-space:nowrap}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:520px}th{text-align:left;color:#8a94a8;font-size:10px;letter-spacing:.6px;text-transform:uppercase;padding:11px 10px;border-bottom:1px solid var(--line)}td{padding:13px 10px;border-bottom:1px solid #f0f2f7;font-size:11px}tr:last-child td{border-bottom:0}.service-name{font-weight:750;font-size:12px}.sub{display:block;color:var(--muted);font-size:10px;margin-top:3px}.pill{display:inline-block;border-radius:20px;padding:5px 8px;font-size:10px;font-weight:800;background:#fff4dd;color:#a16b12}.pill.done{background:#e5f8ef;color:#168457}.pill.cancel{background:#ffe9e9;color:#c24c4c}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:12px}.toast{position:fixed;right:22px;bottom:22px;background:#17233e;color:#fff;padding:13px 17px;border-radius:10px;font-size:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:10}.toast.show{opacity:1;transform:translateY(0)}
+.mobile-menu{display:none}
+@media(max-width:1000px){.sidebar{width:215px}.stats{grid-template-columns:repeat(2,1fr)}.grid-main{grid-template-columns:1fr}.content{padding:25px 22px}}
+@media(max-width:650px){.sidebar{display:none}.topbar{height:62px;padding:0 16px}.mobile-menu{display:inline-grid}.content{padding:22px 14px}.welcome h1{font-size:22px}.stats{gap:10px}.stat{padding:14px}.stat strong{font-size:22px}.stat-top{font-size:10px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:16px}.top-actions{gap:8px}.profile span{display:none}}
 </style>
 </head>
 <body>
-<header>
- <div class="logo">SMS NEXORA</div>
- <nav>
-  <a href="#home">Home</a>
-  <a href="#services">Services</a>
-  <a href="#about">About</a>
- </nav>
-</header>
-
-<section class="hero" id="home">
- <h1>Welcome to SMS Nexora</h1>
- <p>Simple and secure SMS verification solutions.</p>
- <a class="btn" href="#services">Explore Services</a>
-</section>
-
-<div class="container" id="services">
- <h1>Our Services</h1>
- <div class="cards">
-  <div class="card">
-   <h2>SMS Verification</h2>
-   <p>Authorized OTP verification for your own applications.</p>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">✦</div>SMS Nexora</div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
+    <button data-page="numbers"><span class="ico">▣</span>Virtual Numbers</button>
+    <button data-page="orders"><span class="ico">◷</span>My Orders</button>
+    <button data-page="wallet"><span class="ico">◈</span>Wallet & Billing</button>
+  </nav>
+  <div class="nav-label">ACCOUNT</div>
+  <nav class="nav">
+    <button data-page="transactions"><span class="ico">↕</span>Transactions</button>
+    <button data-page="support"><span class="ico">◌</span>Help & Support</button>
+    <button data-page="settings"><span class="ico">⚙</span>Settings</button>
+  </nav>
+  <div class="side-bottom"><strong>Need a hand?</strong>Our support team can help with your account and orders.<br><button onclick="showToast('Support contact will be configured when the backend is connected.')">Contact support</button></div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div class="crumb"><span class="mobile-menu">☰ &nbsp;</span>Workspace / <strong id="crumb">Dashboard</strong></div>
+    <div class="top-actions"><button class="icon-btn" aria-label="Notifications" onclick="showToast('You are all caught up.')">♧</button><div class="profile"><div class="avatar">U</div><span>My Account ▾</span></div></div>
+  </header>
+  <div class="content">
+    <div class="welcome"><div><h1 id="page-title">Welcome back 👋</h1><p>Here’s an overview of your SMS Nexora account.</p></div><div class="demo-tag">DEMO PREVIEW · SAMPLE DATA</div></div>
+    <section class="stats">
+      <div class="stat"><div class="stat-top">Wallet balance <span class="stat-icon" style="background:#edf1ff;color:#315cf5">◈</span></div><strong>$24.50</strong><small>Sample balance</small></div>
+      <div class="stat"><div class="stat-top">Active orders <span class="stat-icon" style="background:#e9f8f1;color:#16a36a">◷</span></div><strong id="active-count">2</strong><small>Currently in progress</small></div>
+      <div class="stat"><div class="stat-top">Completed orders <span class="stat-icon" style="background:#f1edff;color:#7957e8">✓</span></div><strong>18</strong><small>All-time sample total</small></div>
+      <div class="stat"><div class="stat-top">Total spent <span class="stat-icon" style="background:#fff3e8;color:#d67b2b">$</span></div><strong>$42.80</strong><small>Sample account activity</small></div>
+    </section>
+    <div class="grid-main">
+      <div>
+        <section class="card">
+          <div class="card-head"><h2>Start a new order</h2><span>Choose an authorized use case</span></div>
+          <div class="form-grid">
+            <div class="field"><label for="country">SELECT COUNTRY</label><select id="country"><option value="United States">🇺🇸 United States</option><option value="United Kingdom">🇬🇧 United Kingdom</option><option value="Canada">🇨🇦 Canada</option><option value="Australia">🇦🇺 Australia</option></select></div>
+            <div class="field"><label for="purpose">PURPOSE</label><select id="purpose"><option>Business account verification</option><option>Customer support testing</option><option>QA / application testing</option></select></div>
+            <div class="field full"><label for="reference">YOUR REFERENCE (OPTIONAL)</label><input id="reference" placeholder="e.g. Order note or project name" maxlength="60"></div>
+            <div class="full"><button class="primary" onclick="createDemoOrder()">＋ Create demo order</button><p class="note">Preview only: this demo does not reserve a real phone number, send or receive SMS, or charge your wallet. Connect an authorized provider and secure backend to enable live orders.</p></div>
+          </div>
+        </section>
+        <section class="card">
+          <div class="card-head"><h2>Recent orders</h2><button class="secondary" onclick="navigate('orders')">View all orders →</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Order</th><th>Country</th><th>Purpose</th><th>Status</th></tr></thead><tbody id="orders-body">
+          <tr><td><span class="service-name">#NX-1048</span><span class="sub">Today, 10:42 AM</span></td><td>United States</td><td>Business verification</td><td><span class="pill">Processing</span></td></tr>
+          <tr><td><span class="service-name">#NX-1047</span><span class="sub">Yesterday</span></td><td>Canada</td><td>QA testing</td><td><span class="pill done">Completed</span></td></tr>
+          <tr><td><span class="service-name">#NX-1046</span><span class="sub">Nov 08, 2026</span></td><td>United Kingdom</td><td>Business verification</td><td><span class="pill cancel">Cancelled</span></td></tr>
+          </tbody></table></div>
+        </section>
+      </div>
+      <div>
+        <section class="card">
+          <div class="card-head"><h2>Wallet overview</h2><span>Demo</span></div>
+          <div class="balance"><small>AVAILABLE BALANCE</small><strong>$24.50</strong><button onclick="showToast('Secure payment setup will be added with the backend.')">＋ Add funds</button></div>
+          <p class="note">Payments are disabled in this preview. A secure payment provider must be configured before accepting deposits.</p>
+        </section>
+        <section class="card">
+          <div class="card-head"><h2>Recent activity</h2><span>Latest updates</span></div>
+          <div class="activity">
+            <div class="activity-row"><div><strong>Order created</strong><small>United States · #NX-1048</small></div><span class="amount">Today</span></div>
+            <div class="activity-row"><div><strong>Order completed</strong><small>Canada · #NX-1047</small></div><span class="amount">Yesterday</span></div>
+            <div class="activity-row"><div><strong>Wallet top-up</strong><small>Sample transaction</small></div><span class="amount">+$20.00</span></div>
+          </div>
+        </section>
+        <section class="card">
+          <div class="card-head"><h2>Account status</h2><span class="pill done">Preview</span></div>
+          <p class="note" style="margin-top:0">This interface is a frontend prototype. Before launch, add user authentication, provider integration, payment processing, abuse prevention, privacy controls, and server-side order validation.</p>
+        </section>
+      </div>
+    </div>
   </div>
-  <div class="card">
-   <h2>Business Messaging</h2>
-   <p>SMS communication solutions for businesses.</p>
-  </div>
-  <div class="card">
-   <h2>Customer Support</h2>
-   <p>Support and assistance for our customers.</p>
-  </div>
- </div>
+</main>
 </div>
-
-<div class="container" id="about">
- <h1>About SMS Nexora</h1>
- <p>SMS Nexora provides business messaging and authorized verification solutions.</p>
-</div>
-
-<footer>
- © 2026 SMS Nexora. All rights reserved.
-</footer>
+<div class="toast" id="toast" role="status"></div>
+<script>
+let demoOrderNumber=1049;
+function showToast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
+function createDemoOrder(){
+ const country=document.getElementById('country').value;
+ const purpose=document.getElementById('purpose').value;
+ const ref=document.getElementById('reference').value.trim();
+ const row=document.createElement('tr');
+ const date=new Date().toLocaleString([], {month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+ const id='#NX-'+demoOrderNumber++;
+ row.innerHTML='<td><span class="service-name">'+id+'</span><span class="sub">'+date+'</span></td><td>'+country+'</td><td>'+purpose+(ref?' · '+ref.replace(/[<>&"]/g,''):'')+'</td><td><span class="pill">Demo only</span></td>';
+ document.getElementById('orders-body').prepend(row);
+ showToast('Demo order added. No real number was reserved.');
+}
+function navigate(page){
+ const labels={dashboard:'Dashboard',numbers:'Virtual Numbers',orders:'My Orders',wallet:'Wallet & Billing',transactions:'Transactions',support:'Help & Support',settings:'Settings'};
+ document.getElementById('crumb').textContent=labels[page]||'Dashboard';
+ document.getElementById('page-title').textContent=page==='dashboard'?'Welcome back 👋':labels[page];
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ if(page!=='dashboard')showToast(labels[page]+' section is a preview. Live features will be connected in the next stage.');
+}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
+</script>
 </body>
 </html>
